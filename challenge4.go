@@ -6,7 +6,6 @@ import (
 	"strconv"
 )
 
-
 type student struct{
 	Nama string
 	Alamat string
@@ -15,14 +14,16 @@ type student struct{
 	Absen int
 }
 
-
-
-
 func main() {
 	students := []student{
-		{Nama: "budi", Alamat: "azkaban", Pekerjaan: "assassin", Alasan: "no diea llol", Absen: 1},
-    {Nama: "idubz", Alamat: "azkaban", Pekerjaan: "assassin", Alasan: "no diea llol", Absen: 2},
+		{Nama: "Golang WOngsawat", Alamat: "thailand", Pekerjaan: "pro boxer", Alasan: "muh boxing", Absen: 1},
+		{Nama: "Budiz", Alamat: "azkaban", Pekerjaan: "assassin", Alasan: "no diea llol", Absen: 5},
+    {Nama: "Idubz", Alamat: "azkaban", Pekerjaan: "pro gamer", Alasan: "no diea llol", Absen: 2},
+    {Nama: "El Donte", Alamat: "azkaban", Pekerjaan: "el diablo honter", Alasan: "no diea llol", Absen: 3},
+    {Nama: "Dante", Alamat: "azkaban", Pekerjaan: "devil hunter", Alasan: "no diea llol", Absen: 4},
 	}
+
+	// fmt.Printf("the type is %T\n", students[0])
 
 	absen, err := strconv.Atoi(os.Args[1])
 	if err != nil {
@@ -37,15 +38,24 @@ func main() {
 		}
 	}
 
+
+	// selectedStudent, ok := students[absen]
+	// if ok {
+	// 	fmt.Println("Nama: ", selectedStudent.Nama)
+	// 	fmt.Println("Pekerjaan: ", selectedStudent.Pekerjaan)
+	// 	fmt.Println("Alamat: ", selectedStudent.Alamat)
+	// 	fmt.Println("Alasan: ", selectedStudent.Alasan)
+	// } else {
+	// 	fmt.Println("No student found with the given absen value")
+	// }
+
 	if selectedStudent != nil {
-		fmt.Println(*selectedStudent)
+		fmt.Println("Nama: ", selectedStudent.Nama)
+		fmt.Println("Pekerjaan: ", selectedStudent.Pekerjaan)
+		fmt.Println("Alamat: ", selectedStudent.Alamat)
+		fmt.Println("Alasan: ", selectedStudent.Alasan)
 	} else {
 		fmt.Println("No student found with the given absen value")
 	}
 
-	// fmt.Println(budi)
-	// fmt.Println(idubz)
-
-	// lol := len(os.Args)
-	// fmt.Println(lol)
 }
