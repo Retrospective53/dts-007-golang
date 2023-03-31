@@ -18,6 +18,7 @@ func init() {
 
 func CreateBook() {
 	var book = model.Book{}
+	defer db.Close()
 
 	sqlStatement := `
 	INSERT INTO books (title, author, description)
@@ -37,6 +38,8 @@ func CreateBook() {
 
 func GetBook() {
 	var book = model.Book{}
+	defer db.Close()
+
 
 	sqlStatement := `
 	SELECT id, title, author, description FROM books
@@ -56,6 +59,8 @@ func GetBook() {
 
 func GetBooks() {
 	var results = []model.Book{}
+	defer db.Close()
+
 
 	sqlStatement := `
 	SELECT id, title, author, description FROM books
@@ -84,6 +89,8 @@ func GetBooks() {
 }
 
 func UpdateBook() {
+	defer db.Close()
+
 	sqlStatement := `
 	UPDATE books 
 	SET title = $2, author = $3, description = $4
@@ -105,6 +112,8 @@ func UpdateBook() {
 }
 
 func DeleteBook() {
+	defer db.Close()
+
 	sqlStatement := `
 	DELETE from books
 	where id = $1

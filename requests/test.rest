@@ -1,0 +1,27 @@
+###
+GET http://localhost:4000/books
+
+###
+POST http://localhost:4000/books
+Content-Type: application/json
+
+{
+  "title": "The Call of Cthulhu",
+  "author": "H.P Lovecraft",
+  "desc": "lolidk"
+}
+
+###
+PUT http://localhost:4000/books/b1
+Content-Type: application/json
+
+{
+  "title": "Bloodborne",
+  "author": "miyazaki",
+  "desc": "ghibli"
+}
+###
+GET http://localhost:4000/books/b1
+
+###
+DELETE http://localhost:4000/books/b1
