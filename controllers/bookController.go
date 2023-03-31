@@ -3,19 +3,22 @@ package controllers
 import (
 	"fmt"
 	"net/http"
+	"strconv"
+
+	"challenge-7/module/repository/book"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Book struct {
-	BookID string `json:"id"`
+	BookID int `json:"id"`
 	Title string `json:"title"`
 	Author string `json:"author"`
 	Desc string `json:"desc"`
 }
 
 var bookDatas = []Book{{
-	BookID: "b1",
+	BookID: 1,
   Title: "The Call of Cthulhu",
   Author: "H.P Lovecraft",
   Desc: "lolidk",
@@ -25,22 +28,26 @@ var bookDatas = []Book{{
 func CreateBook(ctx *gin.Context) {
 	var newBook Book
 
+	
 	if err := ctx.ShouldBindJSON(&newBook); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-
-	newBook.BookID = fmt.Sprintf("b%d", len(bookDatas)+1)
-	bookDatas = append(bookDatas, newBook)
+	
+	bookSent := book.CreateBook(newBook.Title, newBook.Author, newBook.Desc)
 
 	ctx.JSON(http.StatusCreated, gin.H{
-		"book": newBook,
+		"book": bookSent,
 	})
 }
 
 func UpdateBook(ctx *gin.Context) {
-	BookID:= ctx.Param("BookID")
-	condition := false
+	BookIDStr := ctx.Param("BookID")
+	BookID, err := strconv.Atoi(BookIDStr)
+	if err != nil {
+		ctx.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
 	var updatedBook Book
 	updatedBook.BookID = BookID
 
@@ -49,22 +56,18 @@ func UpdateBook(ctx *gin.Context) {
 		return
 	}
 
-	for i, book := range bookDatas {
-		if BookID == book.BookID {
-			condition = true
-			bookDatas[i] = updatedBook
-			bookDatas[i].BookID = BookID
-			break
-		}
-	}
+	book.UpdateBook(BookID , updatedBook.Title, updatedBook.Author, updatedBook.Desc)
 
-	if !condition {
-		ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error_status": "Data Not Found",
-			"error_message": fmt.Sprintf("book with id %v not found", BookID),
-		})
-		return
-	}
+
+	// for i, book := range bookDatas {
+	// 	if BookID == book.BookID {
+	// 		condition = true
+	// 		bookDatas[i] = updatedBook
+	// 		bookDatas[i].BookID = BookID
+	// 		break
+	// 	}
+	// }
+
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": fmt.Sprintf("book with id %v has been succesfully updated", BookID),
@@ -73,25 +76,16 @@ func UpdateBook(ctx *gin.Context) {
 }
 
 func GetBook (ctx *gin.Context) {
-	BookID := ctx.Param("BookID")
-	condition := false
-	var bookData Book
-
-	for i, book := range bookDatas {
-		if BookID == book.BookID {
-			condition = true
-			bookData = bookDatas[i]
-			break
-		}
-	}
-
-	if !condition {
-		ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error_status": "Data not Found",
-			"error_message": fmt.Sprintf("book with id %v not found", BookID),
-		})
+	BookIDStr := ctx.Param("BookID")
+	BookID, err := strconv.Atoi(BookIDStr)
+	if err != nil {
+		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
+	
+	bookData := book.GetBook(BookID)
+
+
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"book": bookData,
@@ -99,35 +93,20 @@ func GetBook (ctx *gin.Context) {
 }
 
 func GetAllBook (ctx *gin.Context) {
+	booksDatas := book.GetBooks()
 	ctx.JSON(http.StatusOK, gin.H{
-		"books": bookDatas,
+		"books": booksDatas,
 	})
 }
 
 func DeleteBook (ctx *gin.Context) {
-	BookID := ctx.Param("BookID")
-	condition := false
-	var bookIndex int
-
-	for i, book := range bookDatas {
-		if BookID == book.BookID {
-			condition = true
-			bookIndex = i
-			break
-		}
-	}
-
-	if !condition {
-		ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H {
-			"error_status": "Data not Found",
-			"error_message": fmt.Sprintf("book with id %v not found", BookID),
-		})
+	BookIDStr := ctx.Param("BookID")
+	BookID, err := strconv.Atoi(BookIDStr)
+	if err != nil {
+		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-
-	copy(bookDatas[bookIndex:], bookDatas[bookIndex+1:])
-	bookDatas[len(bookDatas)-1] = Book{}
-	bookDatas = bookDatas[:len(bookDatas)-1]
+	book.DeleteBook(BookID)
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": fmt.Sprintf("book with id %v has been succesfuly deleted", BookID),

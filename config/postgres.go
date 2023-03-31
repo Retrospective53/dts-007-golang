@@ -24,7 +24,7 @@ func NewPostgresConfig() (db *sql.DB) {
 		Port: 5432,
 		Host: "localhost",
 		Username: "postgres",
-		Password: "flanerie",
+		Password: "mysecretpassword",
 		DBName: "books_management",
 		MaxOpenConnection: 7,
 		MaxIdleConnection: 5,
@@ -59,5 +59,5 @@ func NewPostgresConfig() (db *sql.DB) {
 		panic(err)
 	}
 
-	return
+	return db
 }

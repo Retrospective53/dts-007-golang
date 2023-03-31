@@ -2,7 +2,6 @@ package main
 
 import (
 	"challenge-7/config"
-	"challenge-7/module/repository/book"
 	"challenge-7/routers"
 	"fmt"
 )
@@ -10,10 +9,11 @@ import (
 
 
 func main() {
-	var PORT = ":4000"
-	config.NewPostgresConfig()
+	db := config.NewPostgresConfig()
+	defer db.Close()
 	fmt.Println("succesfully connectted to the database")
-	book.CreateBook()
+	var PORT = ":4000"
+
 
 	routers.StartServer().Run(PORT)
 	

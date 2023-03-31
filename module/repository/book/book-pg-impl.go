@@ -16,9 +16,8 @@ func init() {
 	db = config.NewPostgresConfig()
 }
 
-func CreateBook() {
+func CreateBook(title string, author string, description string) model.Book {
 	var book = model.Book{}
-	defer db.Close()
 
 	sqlStatement := `
 	INSERT INTO books (title, author, description)
@@ -26,7 +25,7 @@ func CreateBook() {
 	RETURNING id, title, author, description
 	`
 
-	err = db.QueryRow(sqlStatement, "Call of Cthulhu", "H.P Lovecraft", "Horror").
+	err = db.QueryRow(sqlStatement, title, author, description).
 	Scan(&book.ID, &book.Title, &book.Author, &book.Description)
 
 	if err != nil {
@@ -34,11 +33,12 @@ func CreateBook() {
 	}
 
 	fmt.Printf("new book data : %+v\n", book)
+
+	return book
 }
 
-func GetBook() {
+func GetBook(id int) model.Book {
 	var book = model.Book{}
-	defer db.Close()
 
 
 	sqlStatement := `
@@ -46,7 +46,7 @@ func GetBook() {
 	WHERE id = $1
 	`
 
-	row := db.QueryRow(sqlStatement, 6)
+	row := db.QueryRow(sqlStatement, id)
 
 	err = row.Scan(&book.ID, &book.Title, &book.Author, &book.Description)
 
@@ -55,11 +55,11 @@ func GetBook() {
 	}
 
 	fmt.Printf("book data : %+v\n", book)
+	return book
 }
 
-func GetBooks() {
+func GetBooks() []model.Book {
 	var results = []model.Book{}
-	defer db.Close()
 
 
 	sqlStatement := `
@@ -86,10 +86,10 @@ func GetBooks() {
 	}
 
 	fmt.Println("books data :", results)
+	return results
 }
 
-func UpdateBook() {
-	defer db.Close()
+func UpdateBook(id int, title string, author string, description string) {
 
 	sqlStatement := `
 	UPDATE books 
@@ -98,7 +98,7 @@ func UpdateBook() {
 	RETURNING id, title, author, description
 	`
 
-	res, err := db.Exec(sqlStatement, 6, "Banki Banki", "stacks", "rocknrocnnbeat")
+	res, err := db.Exec(sqlStatement, id, title, author, description)
 	if err != nil {
 		panic(err)
 	}
@@ -111,15 +111,14 @@ func UpdateBook() {
 	fmt.Println("updated data:", count)
 }
 
-func DeleteBook() {
-	defer db.Close()
+func DeleteBook(id int) {
 
 	sqlStatement := `
 	DELETE from books
 	where id = $1
 	`
 
-	res, err := db.Exec(sqlStatement, 7)
+	res, err := db.Exec(sqlStatement, id)
 	if err != nil {
 		panic(err)
 	}

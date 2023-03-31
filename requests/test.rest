@@ -12,16 +12,16 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:4000/books/b1
+PUT http://localhost:4000/books/11
 Content-Type: application/json
 
 {
-  "title": "Bloodborne",
+  "title": "ARIA",
   "author": "miyazaki",
   "desc": "ghibli"
 }
 ###
-GET http://localhost:4000/books/b1
+GET http://localhost:4000/books/11
 
 ###
-DELETE http://localhost:4000/books/b1
+DELETE http://localhost:4000/books/11
