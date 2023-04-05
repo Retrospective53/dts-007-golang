@@ -1,0 +1,27 @@
+
+GET http://localhost:4040/api/book/all
+
+###
+POST http://localhost:4040/api/book
+Content-Type: application/json
+
+{
+  "title": "The Call of Cthulhu",
+  "author": "H.P Lovecraft",
+  "desc": "lolidk"
+}
+
+###
+PUT http://localhost:4040/api/book/17
+Content-Type: application/json
+
+{
+  "title": "ARIA",
+  "author": "miyazaki",
+  "desc": "ghibli"
+}
+###
+GET http://localhost:4040/api/book/14
+
+###
+DELETE http://localhost:4040/api/book/18
