@@ -41,9 +41,10 @@ func (b *BookSvcImpl) InsertBookSvc(ctx context.Context, bookIn model.Book) (boo
 	return
 }
 
-func (b *BookSvcImpl) UpdateBookSvc(ctx context.Context, bookIn model.Book) (err error) {
+func (b *BookSvcImpl) UpdateBookSvc(ctx context.Context, bookIn model.Book) (book model.Book, err error) {
 	log.Printf("[INFO] %T UpdateBooks invoked\n", b)
-	if err = b.bookRepo.UpdateBook(ctx, bookIn); err != nil {
+	book, err = b.bookRepo.UpdateBook(ctx, bookIn); 
+	if err != nil {
 		log.Printf("[Error] error UpdateBook : %v\n", err)
 	}
 	return

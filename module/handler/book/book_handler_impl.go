@@ -147,7 +147,8 @@ func (b *BookHdlImpl) UpdateBookHdl(ctx *gin.Context) {
 		return
 	}
 
-	if err := b.bookSvc.UpdateBookSvc(ctx, bookIn); err != nil {
+	book, err := b.bookSvc.UpdateBookSvc(ctx, bookIn); 
+	if err != nil {
 		if err.Error() == "book is not found" {
 			ctx.JSON(http.StatusNotFound, response.ErrorResponse{
 				Message:  "failed to update book",
@@ -164,7 +165,7 @@ func (b *BookHdlImpl) UpdateBookHdl(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusAccepted, response.SuccessResponse{
 		Message: "success update book",
-		Data: bookIn,
+		Data: book,
 	})
 }
 
@@ -173,7 +174,7 @@ func (b *BookHdlImpl) DeleteBookByIdHdl(ctx *gin.Context) {
 	if err != nil {
 		return
 	}
-	deletedBook, err := b.bookSvc.DeleteBookByIdSvc(ctx, idUint)
+	_, err = b.bookSvc.DeleteBookByIdSvc(ctx, idUint)
 	if err != nil {
 
 		ctx.JSON(http.StatusInternalServerError, response.ErrorResponse{
@@ -184,7 +185,7 @@ func (b *BookHdlImpl) DeleteBookByIdHdl(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusAccepted, response.SuccessResponse{
 		Message: "success delete book",
-		Data:    deletedBook,
+		Data:    "none",
 	})
 }
 

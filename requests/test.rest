@@ -6,17 +6,17 @@ POST http://localhost:4040/api/book
 Content-Type: application/json
 
 {
-  "title": "The Call of Cthulhuu",
+  "title": "The Call of Cthulhuw",
   "author": "H.P Lovecraft",
   "desc": "lolidk"
 }
 
 ###
-PUT http://localhost:4040/api/book/5
+PUT http://localhost:4040/api/book/6
 Content-Type: application/json
 
 {
-  "title": "ARIA",
+  "title": "ARIA2",
   "author": "miyazaki",
   "desc": "ghibli"
 }
@@ -24,4 +24,4 @@ Content-Type: application/json
 GET http://localhost:4040/api/book/5
 
 ###
-DELETE http://localhost:4040/api/book/5
+DELETE http://localhost:4040/api/book/7

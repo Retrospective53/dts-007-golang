@@ -103,7 +103,7 @@ func (b *BookPgRepoImpl) InsertBook(ctx context.Context, bookIn model.Book) (boo
 
 	return
 }
-func (b *BookPgRepoImpl) UpdateBook(ctx context.Context, bookIn model.Book) (err error) {
+func (b *BookPgRepoImpl) UpdateBook(ctx context.Context, bookIn model.Book) (book model.Book,err error) {
 	sqlStatement := `
 	UPDATE books 
 	SET title = $2, author = $3, description = $4

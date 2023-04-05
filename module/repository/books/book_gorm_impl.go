@@ -80,11 +80,12 @@ func (b *GormRepoImpl) InsertBook(ctx context.Context, bookIn model.Book) (book 
 	return bookIn, nil
 }
 
-func (b *GormRepoImpl) UpdateBook(ctx context.Context, bookIn model.Book) (err error) {
+func (b *GormRepoImpl) UpdateBook(ctx context.Context, bookIn model.Book) (book model.Book, err error) {
 	tx := b.db.
 					Model(&model.Book{}).
 					Where("id = ?", bookIn.BookID).
-					Updates(&bookIn)
+					Updates(&bookIn).
+					Find(&book)
 
 	if err = tx.Error; err != nil {
 		return
@@ -95,6 +96,7 @@ func (b *GormRepoImpl) UpdateBook(ctx context.Context, bookIn model.Book) (err e
 		return
 	}
 
+	log.Println("here is teh updated data" ,bookIn)
 	return
 }
 
