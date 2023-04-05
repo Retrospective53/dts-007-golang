@@ -1,5 +1,6 @@
 package config
 
 const (
-	PORT = ":4040"
+	PORT    = ":4040"
+	MIGRATE = false
 )

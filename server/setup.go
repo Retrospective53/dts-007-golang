@@ -12,8 +12,14 @@ type handlers struct {
 }
 
 func initDI() handlers {
-	pgconn := config.NewPostgresConfig()
-	bookRepo := bookrepo.NewBookPgRepo(pgconn)
+	// no gorm
+	// pgconn := config.NewPostgresConfig()
+	// bookRepo := bookrepo.NewBookPgRepo(pgconn)
+
+	// gorm
+	pgconn := config.NewPostgresGormConn()
+	bookRepo := bookrepo.NewBookGormRepo(pgconn)
+	
 	bookSvc := booksvc.NewBookSvc(bookRepo)
 	bookHdl := bookhdl.NewBookHandler(bookSvc)
 
