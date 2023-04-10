@@ -2,5 +2,5 @@ package config
 
 const (
 	PORT    = ":4040"
-	MIGRATE = false
+	MIGRATE = true
 )

@@ -27,7 +27,7 @@ var pgConfig = PostgresConfig{
 	Port: 5432,
 		Host: "localhost",
 		Username: "postgres",
-		Password: "flanerie",
+		Password: "mysecretpassword",
 		DBName: "books_management",
 		MaxOpenConnection: 7,
 		MaxIdleConnection: 5,
