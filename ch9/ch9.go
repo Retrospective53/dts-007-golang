@@ -19,10 +19,12 @@ type WaternWind struct {
 func PostJsonPlaceHolder() {
 	waterValue, windValue := generateWnW()
 
-	data := map[string]interface{}{
-		"water":  waterValue,
-		"wind":   windValue,
-	}
+	// data := map[string]interface{}{
+	// 	"water":  waterValue,
+	// 	"wind":   windValue,
+	// }
+
+	data := WaternWind{Water: waterValue, Wind: windValue}
 
 	requestJson, err := json.Marshal(data)
 	client := &http.Client{}
@@ -74,6 +76,7 @@ func PostJsonPlaceHolder() {
 	windStatus := windStatus(windValue)
 	fmt.Printf("status wind: %s\n", windStatus)
 
+	// fmt.Println(string(body))
 }
 
 func generateWnW() (waterValue int, windValue int) {
