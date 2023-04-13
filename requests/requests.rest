@@ -1,0 +1,98 @@
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "email": "witch@mail.com",
+  "full_name": "Elsa Granhiert",
+  "password": "ilovegut",
+  "role": "ROLE_ADMIN"
+}
+
+
+###
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "witch@mail.com",
+  "password": "ilovegut"
+}
+###
+POST http://localhost:8080/products
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpdGNoQG1haWwuY29tIiwiZXhwIjoxNjgxNDk0MzMwLCJpZCI6MX0.BvPK83gEpeS_MLFrhHGT0bAu52ZdSyWVu-c83GH0y9I
+
+{
+  "title": "delete test",
+  "description": "fumofu delete"
+}
+###
+PUT http://localhost:8080/products/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpdGNoQG1haWwuY29tIiwiZXhwIjoxNjgxNDk0MzMwLCJpZCI6MX0.BvPK83gEpeS_MLFrhHGT0bAu52ZdSyWVu-c83GH0y9I
+
+{
+  "title": "elsa",
+  "description": "fumo fumo"
+}
+
+###
+GET http://localhost:8080/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpdGNoQG1haWwuY29tIiwiZXhwIjoxNjgxNDk0MzMwLCJpZCI6MX0.BvPK83gEpeS_MLFrhHGT0bAu52ZdSyWVu-c83GH0y9I
+
+###
+GET http://localhost:8080/products/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpdGNoQG1haWwuY29tIiwiZXhwIjoxNjgxNDk0MzMwLCJpZCI6MX0.BvPK83gEpeS_MLFrhHGT0bAu52ZdSyWVu-c83GH0y9I
+
+
+###
+DELETE  http://localhost:8080/products/7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndpdGNoQG1haWwuY29tIiwiZXhwIjoxNjgxNDk0MzMwLCJpZCI6MX0.BvPK83gEpeS_MLFrhHGT0bAu52ZdSyWVu-c83GH0y9I
+
+
+
+
+
+
+###
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "email": "subaru@mail.com",
+  "full_name": "subaru idk",
+  "password": "lifeissuffering",
+  "role": "ROLE_NORMAL"
+}
+
+###
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "subaru@mail.com",
+  "password": "lifeissuffering"
+}
+
+###
+POST http://localhost:8080/products
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1YmFydUBtYWlsLmNvbSIsImV4cCI6MTY4MTQ5NjA1OCwiaWQiOjJ9.VbyHuPToqCVWKNO2kGPEAZhjfAnuNdT6-Jf6ZGWCWLk
+
+{
+  "title": "test product",
+  "description": "test"
+}
+###
+PUT http://localhost:8080/products/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1YmFydUBtYWlsLmNvbSIsImV4cCI6MTY4MTQ5NjA1OCwiaWQiOjJ9.VbyHuPToqCVWKNO2kGPEAZhjfAnuNdT6-Jf6ZGWCWLk
+
+{
+  "title": "reimu fumo",
+  "description": "fumo fumo"
+}
+
+###
+DELETE  http://localhost:8080/products/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1YmFydUBtYWlsLmNvbSIsImV4cCI6MTY4MTQ5NjA1OCwiaWQiOjJ9.VbyHuPToqCVWKNO2kGPEAZhjfAnuNdT6-Jf6ZGWCWLk
